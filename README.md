@@ -78,7 +78,7 @@ Example (YAML):
 
 - name: Queue Worker
   path: ./apps/queue
-  cmd: node queue.js
+  cmd: node worker.js
 
 - name: Web App
   path: ./apps/web
