@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@plugin "daisyui" {
+    themes: all;
+}
+
+.title-bar {
+    app-region: drag;
+}
+
+.theme-btn-active {
+    @apply bg-accent text-accent-content;
+}
