@@ -1,7 +1,7 @@
-import type { Arg } from 'src/types';
-import { app, dialog } from 'electron';
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { app, dialog } from 'electron';
+import type { Arg } from 'src/types';
 import yaml from 'yaml';
 import yargs from 'yargs';
 

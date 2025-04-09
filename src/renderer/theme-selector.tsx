@@ -1,7 +1,7 @@
+import { PaletteIcon } from 'lucide-react';
+import { capitalize } from 'radashi';
 import { useEffect, useRef } from 'react';
 import { themeChange } from 'theme-change';
-import { capitalize } from 'radashi';
-import { PaletteIcon } from 'lucide-react';
 
 const themes = [
 	'light',

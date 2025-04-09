@@ -1,15 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
-import { Terminal } from '@xterm/xterm';
 import { FitAddon } from '@xterm/addon-fit';
 import { SearchAddon } from '@xterm/addon-search';
 import { WebLinksAddon } from '@xterm/addon-web-links';
+import { Terminal } from '@xterm/xterm';
+import chalk from 'chalk';
+import Color from 'colorjs.io';
+import { PaintBucketIcon, PlayIcon, SquareIcon } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 import { useIntersection, useWindowSize } from 'react-use';
 import type { Api } from '../preload';
-import { useXtermThemeSync } from './use-xterm-theme-sync';
-import chalk from 'chalk';
 import { Portal } from './portal';
-import { PaintBucketIcon, PlayIcon, SquareIcon } from 'lucide-react';
-import Color from 'colorjs.io';
+import { useXtermThemeSync } from './use-xterm-theme-sync';
 
 export type Props = {
 	terminals: Api['terminals'];

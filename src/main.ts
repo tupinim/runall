@@ -1,10 +1,10 @@
-import { app, ipcMain, BrowserWindow } from 'electron';
 import { join } from 'node:path';
+import { BrowserWindow, app, ipcMain } from 'electron';
+import { shell } from 'electron';
 import started from 'electron-squirrel-startup';
 import type PTY from 'node-pty';
 import type { Arg } from './types';
 import { parseArgs, parseCmd } from './utils';
-import { shell } from 'electron';
 
 const ptyPath = app.isPackaged
 	? join(process.resourcesPath, 'node-pty')
