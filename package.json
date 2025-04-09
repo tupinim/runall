@@ -9,8 +9,10 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "biome check --write src",
-    "darwin-arm64": "open -a \"$(pwd)/out/runall-darwin-arm64/runall.app\" --args --cwd=\"$(pwd)\""
+    "lint": "biome check --write src"
+  },
+  "bin": {
+    "runall": "./bin.js"
   },
   "keywords": [],
   "author": {

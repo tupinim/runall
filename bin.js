@@ -1,40 +1,31 @@
 #!/usr/bin/env node
 const { spawnSync } = require("child_process");
-const { platform } = require("os");
+const os = require("os");
 const { join } = require("path");
 const { existsSync } = require("fs");
 
-// This is a work in progress.
+const plat = os.platform();
+const arch = os.arch();
+const ext = plat === "win32" ? ".exe" : plat === "darwin" ? ".app" : "";
+const path = join(__dirname, `out/Runall-${plat}-${arch}/Runall${ext}`);
+let result;
 
-let cmd;
-const binPath = (path) => {
-  const joined = join(__dirname, path);
-
-  if (!existsSync(joined)) {
-    console.error("Unsupported OS/Architecture");
-    process.exit(1);
-  }
-
-  return joined;
+if (!existsSync(path)) {
+  console.error("Unsupported OS/Architecture");
+  process.exit(1);
 }
 
-switch (platform()) {
-  case "win32":
-    console.error("Unsupported OS");
-    process.exit(1);
-    break;
-  case "darwin":
-    const path = binPath(`/out/runall-darwin-${os.arch()}/runall.app`);
-    cmd = `open -a "${path}" --args --cwd="$(pwd)"`;
-    break;
-  case "linux":
-    console.error("Unsupported OS");
-    process.exit(1);
-    break;
-  default:
-    console.error("Unsupported OS");
-    process.exit(1);
+if (plat === 'darwin') {
+  result = spawnSync('open', [
+    '-a', path,
+    '--args',
+    '--cwd="$(pwd)"',
+    ...process.argv.slice(2),
+  ], { stdio: "inherit", shell: true });
 }
 
-const result = spawnSync(cmd, process.argv.slice(2), { stdio: "inherit" });
+if (['win32', 'linux'].includes(plat)) {
+  result = spawnSync(path, process.argv.slice(2), { stdio: "inherit" });
+}
+
 process.exit(result.status);
