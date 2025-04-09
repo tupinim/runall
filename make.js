@@ -5,10 +5,8 @@ const builds = [
   { platform: 'darwin', arch: 'x64' },
   { platform: 'linux', arch: 'arm64' },
   { platform: 'linux', arch: 'x64' },
-  { platform: 'linux', arch: 'x86' },
   { platform: 'win32', arch: 'arm64' },
   { platform: 'win32', arch: 'x64' },
-  { platform: 'win32', arch: 'x86' },
 ];
 
 for (const { platform, arch } of builds) {

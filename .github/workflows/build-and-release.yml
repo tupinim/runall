@@ -1,0 +1,38 @@
+name: Build & Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*" # Triggers only on version tags like v1.0.0
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run build script
+        run: node ./make.js
+
+      - name: Create GitHub Release and upload binaries
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            out/make/zip/darwin/arm64/Runall-dawin-arm64-*.zip
+            out/make/zip/darwin/x64/Runall-darwin-x64-*.zip
+            out/make/zip/linux/arm64/Runall-linux-arm64-*.zip
+            out/make/zip/linux/x64/Runall-linux-x64-*.zip
+            out/make/zip/win32/arm64/Runall-win32-arm64-*.zip
+            out/make/zip/win32/x64/Runall-win32-x64-*.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
