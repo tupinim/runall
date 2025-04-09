@@ -4,8 +4,8 @@
 ▐▛▀▚▖▐▌ ▐▌▐▌ ▝▜▌▐▛▀▜▌▐▌   ▐▌   
 ▐▌ ▐▌▝▚▄▞▘▐▌  ▐▌▐▌ ▐▌▐▙▄▄▖▐▙▄▄▖                       
 ```
-![Version](https://img.shields.io/github/v/release/tupinim/runall?style=flat-square)
-![License](https://img.shields.io/github/license/tupinim/runall?style=flat-square)
+![Version](https://img.shields.io/github/v/release/pillbugin/runall?style=flat-square)
+![License](https://img.shields.io/github/license/pillbugin/runall?style=flat-square)
 
 **Runall** is a simple utility designed to help developers run multiple commands simultaneously, simplifying workflows for applications that depend on several services or scripts running in parallel.
 
@@ -40,7 +40,7 @@ Each argument should follow the format:
 
 ### Binary Executable 💾
 
-You can also download a prebuilt binary to run Runall without using Node.js. Visit the [Releases](https://github.com/tupinim/runall/releases) section of this repository to get the latest version for your OS.
+You can also download a prebuilt binary to run Runall without using Node.js. Visit the [Releases](https://github.com/pillbugin/runall/releases) section of this repository to get the latest version for your OS.
 
 ---
 
