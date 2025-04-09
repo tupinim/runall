@@ -1,8 +1,8 @@
 {
   "name": "runall",
-  "productName": "runall",
+  "productName": "Runall",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "Run all your dev commands at once — with tabs and combined logs.",
   "main": ".vite/build/main.js",
   "scripts": {
     "start": "electron-forge start --",
