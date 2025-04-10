@@ -42,7 +42,7 @@ try {
 
   const [behind, ahead] = result.split('\t').map(Number);
 
-  if (behind > 0 && ahead > 0) {
+  if (behind > 0 || ahead > 0) {
     console.log(`🚫 Branch is out of sync: ${behind} behind, ${ahead} ahead`);
     process.exit(1);
   }
