@@ -6,6 +6,11 @@ const { execSync } = require('child_process');
 const { URL } = require('url');
 const pkg = require('./package.json');
 
+if (module === require.main) {
+	console.log('Skipping postinstall script.');
+	process.exit(0);
+}
+
 const plat = os.platform();
 const arch = os.arch();
 const version = pkg.version;
