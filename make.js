@@ -1,4 +1,4 @@
-const { spawnSync } = require('child_process');
+const { spawn } = require('child_process');
 
 const builds = [
   { platform: 'darwin', arch: 'arm64' },
@@ -9,19 +9,63 @@ const builds = [
   { platform: 'win32', arch: 'x64' },
 ];
 
-for (const { platform, arch } of builds) {
-  console.log(`\n📦 Building for ${platform} (${arch})...`);
-  const result = spawnSync('npx', [
-    'electron-forge',
-    'make',
-    '--platform', platform,
-    '--arch', arch,
-  ], { stdio: 'inherit' });
+function runBuild({ platform, arch }) {
+  return new Promise((resolve, reject) => {
+    const log = [];
+    const command = 'npx';
+    const args = [
+      'electron-forge',
+      'make',
+      '--platform', platform,
+      '--arch', arch,
+    ];
 
-  if (result.status !== 0) {
-    console.error(`❌ Failed to build for ${platform} (${arch})`);
-    process.exit(1);
-  }
+    const child = spawn(command, args, { shell: true });
+
+    child.stdout.on('data', data => log.push(`[${platform}-${arch}] ${data}`));
+    child.stderr.on('data', data => log.push(`[${platform}-${arch}][stderr] ${data}`));
+
+    child.on('close', code => {
+      if (code !== 0) {
+        reject({
+          platform,
+          arch,
+          code,
+          log: log.join('')
+        });
+      } else {
+        resolve({
+          platform,
+          arch,
+          log: log.join('')
+        });
+      }
+    });
+  });
 }
 
-console.log('\n✅ All builds completed!');
+(async () => {
+  console.log('🚀 Starting parallel builds...\n');
+
+  try {
+    const results = await Promise.all(builds.map(runBuild));
+
+    for (const result of results) {
+      console.log(`\n✅ Build completed for ${result.platform} (${result.arch})`);
+    }
+
+    console.log('\n📦 All builds completed successfully!\n');
+
+    for (const result of results) {
+      console.log(`\n--- Logs for ${result.platform} (${result.arch}) ---\n`);
+      console.log(result.log);
+    }
+
+  } catch (error) {
+    console.error(`\n❌ Build failed for ${error.platform} (${error.arch})`);
+    console.error(`Exit code: ${error.code}\n`);
+    console.error('--- Full log ---\n');
+    console.error(error.log);
+    process.exit(1);
+  }
+})();

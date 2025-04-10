@@ -4,13 +4,18 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
-const plat = os.platform(); // 'darwin', 'linux', 'win32'
-const arch = os.arch();     // 'x64', 'arm64'
-const version = require('../package.json').version;
+if (require.main === module) {
+  console.log('Skipping postinstall (root project)');
+  process.exit(0);
+}
+
+const plat = os.platform();
+const arch = os.arch();
+const version = require('./package.json').version;
 
 const filename = `Runall-${plat}-${arch}-${version}.zip`;
 const url = `https://github.com/pillbugin/runall/releases/download/v${version}/${filename}`;
-const outputDir = path.resolve(__dirname, '..', 'bin');
+const outputDir = path.resolve(__dirname, 'bin');
 const zipPath = path.join(outputDir, filename);
 
 // Create output dir if needed
