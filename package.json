@@ -9,7 +9,8 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "biome check --write src"
+    "lint": "biome check --write src",
+    "postinstall": "node ./postinstall.js"
   },
   "bin": {
     "runall": "./bin.js"
