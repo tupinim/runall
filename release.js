@@ -1,4 +1,4 @@
-const { spawnSync } = require("child_process");
+const { spawnSync, execSync } = require("child_process");
 const package = require('./package.json');
 
 const tag = `v${package.version}`;
@@ -9,11 +9,13 @@ try {
     encoding: 'utf-8',
   });
 
-  if (result !== 'main') {
+  if (result.trim() !== 'main') {
     console.log('🚫 Branch is not "main".');
+    process.exit(1);
   }
 } catch (err) {
   console.error('Error checking git branch:', err);
+  process.exit(1);
 }
 
 try {
@@ -24,10 +26,11 @@ try {
 
   if (result.trim().length > 0) {
     console.log('🚫 Workspace is not clean. Commit or stash changes before releasing.');
-    return false;
+    process.exit(1);
   }
 } catch (err) {
   console.error('Error checking workspace status:', err);
+  process.exit(1);
 }
 
 try {
@@ -41,9 +44,11 @@ try {
 
   if (behind > 0 && ahead > 0) {
     console.log(`🚫 Branch is out of sync: ${behind} behind, ${ahead} ahead`);
+    process.exit(1);
   }
 } catch (err) {
   console.error('Error checking origin status:', err);
+  process.exit(1);
 }
 
 try {
@@ -54,9 +59,11 @@ try {
 
   if (result.trim().length > 0) {
     console.log(`🚫 Tag ${tag} already exists on remote.`);
+    process.exit(1);
   }
 } catch (err) {
   console.error('Error verifying tag and workspace:', err);
+  process.exit(1);
 }
 
 const cmd = `git tag ${tag} && git push origin ${tag}`;
