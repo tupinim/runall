@@ -108,6 +108,6 @@ checkFileExists(url, (exists) => {
 		process.exit(1);
 	}
 
-	console.log(`⬇️ Downloading binary: ${filename}`);
+	console.log(`⬇️ Downloading: ${filename}`);
 	downloadWithRedirect(url, zipPath);
 });

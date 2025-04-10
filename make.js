@@ -12,17 +12,8 @@ const builds = [
 function runBuild({ platform, arch }) {
 	return new Promise((resolve, reject) => {
 		const log = [];
-		const command = 'npx';
-		const args = [
-			'electron-forge',
-			'make',
-			'--platform',
-			platform,
-			'--arch',
-			arch,
-		];
-
-		const child = spawn(command, args, { shell: true });
+		const args = ['run', 'make', '--platform', platform, '--arch', arch];
+		const child = spawn('npm', args, { shell: true });
 
 		child.stdout.on('data', (data) =>
 			log.push(`[${platform}-${arch}] ${data}`),
@@ -33,21 +24,9 @@ function runBuild({ platform, arch }) {
 
 		child.on('close', (code) => {
 			if (code !== 0) {
-				console.log(
-					`\n✅ Build completed for ${result.platform} (${result.arch})`,
-				);
-				reject({
-					platform,
-					arch,
-					code,
-					log: log.join(''),
-				});
+				reject({ platform, arch, code, log: log.join('') });
 			} else {
-				resolve({
-					platform,
-					arch,
-					log: log.join(''),
-				});
+				resolve({ platform, arch, log: log.join('') });
 			}
 		});
 	});
