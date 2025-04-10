@@ -52,7 +52,7 @@ try {
 }
 
 try {
-  const result = execSync(`git ls-remote --tags origin refs/tags/${tagName}`, {
+  const result = execSync(`git ls-remote --tags origin refs/tags/${tag}`, {
     stdio: 'pipe',
     encoding: 'utf-8',
   });
