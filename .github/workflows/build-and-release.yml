@@ -1,6 +1,7 @@
 name: Build & Release
 
 on:
+  workflow_dispatch:
   push:
     tags:
       - "v*.*.*" # Triggers only on version tags like v1.0.0
