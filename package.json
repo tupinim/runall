@@ -13,7 +13,7 @@
     "postinstall": "node ./postinstall.js"
   },
   "bin": {
-    "runall": "./bin.js"
+    "runall": "bin.js"
   },
   "keywords": [],
   "author": {
