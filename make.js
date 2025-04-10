@@ -27,6 +27,7 @@ function runBuild({ platform, arch }) {
 
     child.on('close', code => {
       if (code !== 0) {
+        console.log(`\n✅ Build completed for ${result.platform} (${result.arch})`);
         reject({
           platform,
           arch,
@@ -45,22 +46,17 @@ function runBuild({ platform, arch }) {
 }
 
 (async () => {
-  console.log('🚀 Starting parallel builds...\n');
+  console.log('🚀 Running parallel builds...\n');
 
   try {
     const results = await Promise.all(builds.map(runBuild));
-
-    for (const result of results) {
-      console.log(`\n✅ Build completed for ${result.platform} (${result.arch})`);
-    }
-
-    console.log('\n📦 All builds completed successfully!\n');
 
     for (const result of results) {
       console.log(`\n--- Logs for ${result.platform} (${result.arch}) ---\n`);
       console.log(result.log);
     }
 
+    console.log('\n📦 All builds completed successfully!\n');
   } catch (error) {
     console.error(`\n❌ Build failed for ${error.platform} (${error.arch})`);
     console.error(`Exit code: ${error.code}\n`);
