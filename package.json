@@ -14,6 +14,14 @@
   "bin": {
     "runall": "./bin.js"
   },
+  "files": [
+    "out/Runall-darwin-arm64",
+    "out/Runall-darwin-x64",
+    "out/Runall-linux-arm64",
+    "out/Runall-linux-x64",
+    "out/Runall-win32-arm64",
+    "out/Runall-win32-x64"
+  ],
   "keywords": [],
   "author": {
     "name": "Jose M Junior",
