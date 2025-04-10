@@ -66,7 +66,7 @@ try {
   process.exit(1);
 }
 
-const cmd = `git tag ${tag} && git push origin ${tag}`;
+const cmd = `"git tag ${tag} && git push origin ${tag}"`;
 spawnSync('bash -c', [cmd], {
   stdio: "inherit",
   shell: true,
